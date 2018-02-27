@@ -1,7 +1,3 @@
-//
-// Created by daniel on 2/26/18.
-//
-
 #include "LDE.h"
 #include "NodoL.h"
 #include <iostream>
@@ -13,11 +9,13 @@ LDE::LDE(){
 }
 
 void LDE::SortLista() {
-    for(int i = 0; i < cantelem; i++){
+    NodoL *aux = new NodoL(-1);
+    for(int i = 0; i < cantelem - 1; i++){
         for(int i = 0; i < cantelem -1; i++){
             if(first->sig->valueN > first->valueN){
-                first->sig->valueN = first->valueN;
+                aux->valueN = first->valueN;
                 first->valueN = first->sig->valueN;
+                first->valueN = aux->valueN;
             }
             else if(last->ant->valueN < last->valueN){
                 last->ant->valueN = last->valueN;
@@ -34,27 +32,48 @@ void LDE::add(NodoL *n) {
         first = n;
         first = last;
         cantelem++;
+        SortLista();
     }
     else{
         for(int i = 0; i < cantelem - 1; i++){
             aux = aux->sig;
             aux->sig->ant = n;
             cantelem ++;
+            SortLista();
         }
     }
     if(first->sig->valueN == -1){
         first->sig = n;
         first->sig->ant = first->ant;
         cantelem++;
+        SortLista();
     }
     else if(last->ant->valueN == -1){
         last->ant = n;
         last->ant->sig = last->sig;
         cantelem++;
+        SortLista();
     }
 }
 
 void LDE::borrar(int n) {
+    NodoL *aux = new NodoL(-1);
+
+    for(int i = 0 ; i < cantelem; i++){
+        if(first->valueN == n){
+            first = first->sig;
+            first->sig == nullptr;
+            cantelem --;
+            SortLista();
+        }
+
+        else if(last->valueN == n){
+            last = last->ant;
+            last->ant = nullptr;
+            cantelem--;
+            SortLista();
+        }
+    }
 
 }
 
@@ -69,5 +88,5 @@ int LDE::MaxRep() {
 }
 
 int LDE::MaxDif() {
-    return 0;
+    return first->valueN - last->valueN;
 }

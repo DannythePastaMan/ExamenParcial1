@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/ExamenParcial1.dir/main.cpp.o CMakeFiles/ExamenParcial1.dir/LDE.cpp.o CMakeFiles/ExamenParcial1.dir/NodoL.cpp.o  -o ExamenParcial1 
